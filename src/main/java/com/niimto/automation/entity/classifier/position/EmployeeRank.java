@@ -1,6 +1,7 @@
 package com.niimto.automation.entity.classifier.position;
 
 public enum EmployeeRank {
+
     CIVILIAN("Гражданский персонал"),
     PRIVATE("Рядовой"),
     PRIVATE_FC("Ефрейтор"),

@@ -1,16 +1,25 @@
 package com.niimto.automation.entity.user;
 
+import com.niimto.automation.entity.classifier.position.EmployeeDepartment;
 import com.niimto.automation.entity.classifier.position.EmployeePosition;
 import com.niimto.automation.entity.classifier.security.UserRole;
 import com.niimto.automation.entity.classifier.security.UserStatus;
+import com.niimto.automation.entity.employee.Employee;
+import com.niimto.automation.entity.publicationplan.plan.PublicationPlan;
 import com.sun.istack.NotNull;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 import java.util.UUID;
 
@@ -33,6 +42,11 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserStatus userStatus;
 
+    @Column(name = "user_department", nullable = false)
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private EmployeeDepartment department;
+
     @Column(name = "user_position", nullable = false)
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -40,13 +54,14 @@ public class User {
 
     @Column(name = "user_login", nullable = false, unique = true)
     @NotNull
-    private String userLogin;
+    private String login;
 
     @Column(name = "user_passwd", nullable = false)
     @NotNull
-    private String userPasswd;
+    private String password;
 
     @Column(name = "user_appointment_date", nullable = false)
+    @Temporal(TemporalType.DATE)
     @NotNull
     private Date appointmentDate;
 
@@ -58,32 +73,21 @@ public class User {
     @NotNull
     private String name;
 
-    @Column(name = "user_patronymic", nullable = false)
-    @NotNull
+    @Column(name = "user_patronymic")
     private String patronymic;
 
+    @Column(name = "user_photo_path")
+    private String photoPath;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "employees_employee_id", referencedColumnName = "employee_id")
+    private Employee employee;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "publication_plans_publication_plan_id", referencedColumnName = "publication_plan_id")
+    PublicationPlan publicationPlan;
+
     public User() {
-    }
-
-    public User(UserRole userRole,
-                UserStatus userStatus,
-                EmployeePosition position,
-                String userLogin,
-                String userPasswd,
-                Date appointmentDate,
-                String surname,
-                String name,
-                String patronymic) {
-
-        this.userRole = userRole;
-        this.userStatus = userStatus;
-        this.position = position;
-        this.userLogin = userLogin;
-        this.userPasswd = userPasswd;
-        this.appointmentDate = appointmentDate;
-        this.surname = surname;
-        this.name = name;
-        this.patronymic = patronymic;
     }
 
     public UUID getUserId() {
@@ -110,6 +114,14 @@ public class User {
         this.userStatus = userStatus;
     }
 
+    public EmployeeDepartment getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(EmployeeDepartment department) {
+        this.department = department;
+    }
+
     public EmployeePosition getPosition() {
         return position;
     }
@@ -118,20 +130,20 @@ public class User {
         this.position = position;
     }
 
-    public String getUserLogin() {
-        return userLogin;
+    public String getLogin() {
+        return login;
     }
 
-    public void setUserLogin(String userLogin) {
-        this.userLogin = userLogin;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
-    public String getUserPasswd() {
-        return userPasswd;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserPasswd(String userPasswd) {
-        this.userPasswd = userPasswd;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Date getAppointmentDate() {
@@ -166,6 +178,22 @@ public class User {
         this.patronymic = patronymic;
     }
 
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -174,13 +202,13 @@ public class User {
         User user = (User) o;
 
         if (!getUserId().equals(user.getUserId())) return false;
-        return getUserLogin().equals(user.getUserLogin());
+        return getLogin().equals(user.getLogin());
     }
 
     @Override
     public int hashCode() {
         int result = getUserId().hashCode();
-        result = 31 * result + getUserLogin().hashCode();
+        result = 31 * result + getLogin().hashCode();
         return result;
     }
 }

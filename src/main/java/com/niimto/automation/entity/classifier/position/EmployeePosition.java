@@ -4,10 +4,8 @@ public enum EmployeePosition {
 
     HEAD_OF_DEPARTMENT("Начальник управления"),
     DEPUTY_HEAD_OF_DEPARTMENT("Заместитель начальника управления"),
-    HEAD_OF_31_ONI("Начальник 31 ОНИ"),
-    HEAD_OF_32_ONI("Начальник 32 ОНИ"),
-    DEPUTY_HEAD_OF_ONI("Заместитель начальника ОНИ"),
-    HEAD_OF_NIL("Начальник НИЛ"),
+    HEAD("Начальник"),
+    DEPUTY_HEAD("Заместитель начальника"),
     LEADING_RESEARCHER("Ведущий научный сотрудник"),
     SENIOR_RESEARCHER("Старший научный сотрудник"),
     MIDDLE_RESEARCHER("Научный сотрудник"),
