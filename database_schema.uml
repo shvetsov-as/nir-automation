@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>84667503-6989-458e-8fff-4e6e0667c70b</OriginalElement>
+  <nodes>
+    <node x="-80.03728595102189" y="756.9463235288622">84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.stages</node>
+    <node x="297.73135702448906" y="134.7936400541272">84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.groups_users</node>
+    <node x="1492.2124492557512" y="35.682002706360095">84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.guidelines</node>
+    <node x="1090.7392745350762" y="747.5263870094723">84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.personal_tasks</node>
+    <node x="1468.212449255751" y="468.0">84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.publication_plans</node>
+    <node x="1117.2392745350762" y="468.0">84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.personal_plans</node>
+    <node x="-57.037285951021886" y="262.3477672530446">84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.groups</node>
+    <node x="297.73135702448906" y="479.0">84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.documents</node>
+    <node x="624.1156785122446" y="262.3477672530446">84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.users</node>
+    <node x="890.4785490701527" y="468.0">84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.tasks</node>
+    <node x="1451.212449255751" y="747.5263870094723">84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.publications</node>
+    <node x="-64.03728595102189" y="479.0">84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.researches</node>
+    <node x="597.1156785122446" y="732.6414073071719">84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.employees</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.groups_users" target="84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.groups" relationship="REFERENCES">
+      <point x="-37.75" y="-38.0" />
+      <point x="335.48135702448906" y="322.0" />
+      <point x="28.462714048978114" y="322.0" />
+      <point x="0.0" y="60.5" />
+    </edge>
+    <edge source="84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.personal_plans" target="84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.users" relationship="REFERENCES">
+      <point x="0.0" y="-93.5" />
+      <point x="1224.7392745350762" y="351.7699594046008" />
+      <point x="722.6156785122446" y="351.7699594046008" />
+      <point x="0.0" y="148.5" />
+    </edge>
+    <edge source="84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.publications" target="84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.publication_plans" relationship="REFERENCES">
+      <point x="0.0" y="-104.5" />
+      <point x="0.0" y="82.5" />
+    </edge>
+    <edge source="84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.tasks" target="84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.users" relationship="REFERENCES">
+      <point x="0.0" y="-104.5" />
+      <point x="971.4785490701527" y="379.2171853856562" />
+      <point x="722.6156785122446" y="379.2171853856562" />
+      <point x="0.0" y="148.5" />
+    </edge>
+    <edge source="84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.groups_users" target="84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.users" relationship="REFERENCES">
+      <point x="37.75" y="-38.0" />
+      <point x="410.98135702448906" y="322.0" />
+      <point x="722.6156785122446" y="322.0" />
+      <point x="0.0" y="148.5" />
+    </edge>
+    <edge source="84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.personal_tasks" target="84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.personal_plans" relationship="REFERENCES">
+      <point x="0.0" y="-148.5" />
+      <point x="1224.7392745350762" y="782.5277401894452" />
+      <point x="1224.7392745350762" y="782.5277401894452" />
+      <point x="0.0" y="93.5" />
+    </edge>
+    <edge source="84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.documents" target="84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.users" relationship="REFERENCES">
+      <point x="0.0" y="-104.5" />
+      <point x="403.23135702448906" y="375.95805142083896" />
+      <point x="722.6156785122446" y="375.95805142083896" />
+      <point x="0.0" y="148.5" />
+    </edge>
+    <edge source="84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.employees" target="84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.users" relationship="REFERENCES">
+      <point x="0.0" y="-203.5" />
+      <point x="0.0" y="148.5" />
+    </edge>
+    <edge source="84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.stages" target="84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.researches" relationship="REFERENCES">
+      <point x="0.0" y="-115.5" />
+      <point x="0.0" y="71.5" />
+    </edge>
+    <edge source="84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.researches" target="84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.groups" relationship="REFERENCES">
+      <point x="0.0" y="-71.5" />
+      <point x="28.462714048978114" y="322.0" />
+      <point x="28.462714048978114" y="322.0" />
+      <point x="0.0" y="60.5" />
+    </edge>
+    <edge source="84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.publication_plans" target="84667503-6989-458e-8fff-4e6e0667c70b.TABLE:postgres.public.users" relationship="REFERENCES">
+      <point x="0.0" y="-82.5" />
+      <point x="1582.712449255751" y="322.0" />
+      <point x="722.6156785122446" y="322.0" />
+      <point x="0.0" y="148.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.6874545454545454" showDependencies="false" x="572.780216873843" y="383.480560698228" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Columns</Category>
+    <Category>Comments</Category>
+    <Category>Key columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+
