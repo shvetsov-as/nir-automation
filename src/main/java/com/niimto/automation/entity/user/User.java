@@ -4,8 +4,11 @@ import com.niimto.automation.entity.classifier.position.EmployeeDepartment;
 import com.niimto.automation.entity.classifier.position.EmployeePosition;
 import com.niimto.automation.entity.classifier.security.UserRole;
 import com.niimto.automation.entity.classifier.security.UserStatus;
+import com.niimto.automation.entity.document.Document;
 import com.niimto.automation.entity.employee.Employee;
+import com.niimto.automation.entity.personalplan.plan.PersonalPlan;
 import com.niimto.automation.entity.publicationplan.plan.PublicationPlan;
+import com.niimto.automation.entity.tasktodo.Task;
 import com.sun.istack.NotNull;
 
 import javax.persistence.CascadeType;
@@ -15,12 +18,14 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -79,13 +84,20 @@ public class User {
     @Column(name = "user_photo_path")
     private String photoPath;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "employees_employee_id", referencedColumnName = "employee_id")
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Employee employee;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "publication_plans_publication_plan_id", referencedColumnName = "publication_plan_id")
-    PublicationPlan publicationPlan;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private PublicationPlan publicationPlan;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private PersonalPlan personalPlan;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Document> documentList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Task> taskList = new ArrayList<>();
 
     public User() {
     }
@@ -192,6 +204,38 @@ public class User {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    public PublicationPlan getPublicationPlan() {
+        return publicationPlan;
+    }
+
+    public void setPublicationPlan(PublicationPlan publicationPlan) {
+        this.publicationPlan = publicationPlan;
+    }
+
+    public PersonalPlan getPersonalPlan() {
+        return personalPlan;
+    }
+
+    public void setPersonalPlan(PersonalPlan personalPlan) {
+        this.personalPlan = personalPlan;
+    }
+
+    public List<Document> getDocumentList() {
+        return documentList;
+    }
+
+    public void setDocumentList(List<Document> documentList) {
+        this.documentList = documentList;
+    }
+
+    public List<Task> getTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(List<Task> taskList) {
+        this.taskList = taskList;
     }
 
     @Override

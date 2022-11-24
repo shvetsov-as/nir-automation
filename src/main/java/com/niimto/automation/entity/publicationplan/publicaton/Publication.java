@@ -3,7 +3,6 @@ package com.niimto.automation.entity.publicationplan.publicaton;
 import com.niimto.automation.entity.classifier.document.DocStatus;
 import com.niimto.automation.entity.publicationplan.plan.PublicationPlan;
 import com.sun.istack.NotNull;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;

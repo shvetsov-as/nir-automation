@@ -1,7 +1,7 @@
-package com.niimto.automation.entity.publicationplan.plan;
+package com.niimto.automation.entity.personalplan.plan;
 
 import com.niimto.automation.entity.classifier.document.DocStatus;
-import com.niimto.automation.entity.publicationplan.publicaton.Publication;
+import com.niimto.automation.entity.personalplan.task.PersonalTask;
 import com.niimto.automation.entity.user.User;
 import com.sun.istack.NotNull;
 
@@ -24,27 +24,30 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "publication_plans")
-public class PublicationPlan {
+@Table(name = "personal_plans")
+public class PersonalPlan {
 
     @Id
-    @Column(name = "publication_plan_id", nullable = false)
+    @Column(name = "personal_plan_id", nullable = false)
     @NotNull
-    private UUID publicationPlanId;
+    private UUID personalPlanId;
 
-    @Column(name = "publication_plan_status", nullable = false)
+    @Column(name = "personal_plan_status", nullable = false)
     @NotNull
     @Enumerated(EnumType.STRING)
     private DocStatus docStatus;
 
-    @Column(name = "publication_plan_name", nullable = false, unique = true)
+    @Column(name = "personal_plan_name", nullable = false, unique = true)
     @NotNull
     private String name;
 
-    @Column(name = "publication_plan_note")
+    @Column(name = "personal_plan_note")
     private String note;
 
-    @Column(name = "publication_plan_creation_date", nullable = false)
+    @Column(name = "personal_plan_todo")
+    private String todo;
+
+    @Column(name = "personal_plan_creation_date", nullable = false)
     @Temporal(TemporalType.DATE)
     @NotNull
     private Date dateOfCreation;
@@ -53,18 +56,18 @@ public class PublicationPlan {
     @JoinColumn(name = "users_user_id", referencedColumnName = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "publicationPlan",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List <Publication> publicationList = new ArrayList<>();
+    @OneToMany(mappedBy = "personalPlan",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PersonalTask> personalTaskList = new ArrayList<>();
 
-    public PublicationPlan() {
+    public PersonalPlan() {
     }
 
-    public UUID getPublicationPlanId() {
-        return publicationPlanId;
+    public UUID getPersonalPlanId() {
+        return personalPlanId;
     }
 
-    public void setPublicationPlanId(UUID publicationPlanId) {
-        this.publicationPlanId = publicationPlanId;
+    public void setPersonalPlanId(UUID personalPlanId) {
+        this.personalPlanId = personalPlanId;
     }
 
     public DocStatus getDocStatus() {
@@ -91,20 +94,20 @@ public class PublicationPlan {
         this.note = note;
     }
 
+    public String getTodo() {
+        return todo;
+    }
+
+    public void setTodo(String todo) {
+        this.todo = todo;
+    }
+
     public Date getDateOfCreation() {
         return dateOfCreation;
     }
 
     public void setDateOfCreation(Date dateOfCreation) {
         this.dateOfCreation = dateOfCreation;
-    }
-
-    public List<Publication> getPublicationList() {
-        return publicationList;
-    }
-
-    public void setPublicationList(List<Publication> publicationList) {
-        this.publicationList = publicationList;
     }
 
     public User getUser() {
@@ -115,31 +118,39 @@ public class PublicationPlan {
         this.user = user;
     }
 
+    public List<PersonalTask> getPersonalTaskList() {
+        return personalTaskList;
+    }
+
+    public void setPersonalTaskList(List<PersonalTask> personalTaskList) {
+        this.personalTaskList = personalTaskList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PublicationPlan)) return false;
+        if (!(o instanceof PersonalPlan)) return false;
 
-        PublicationPlan that = (PublicationPlan) o;
+        PersonalPlan that = (PersonalPlan) o;
 
-        if (!getPublicationPlanId().equals(that.getPublicationPlanId())) return false;
+        if (!getPersonalPlanId().equals(that.getPersonalPlanId())) return false;
         return getName().equals(that.getName());
     }
 
     @Override
     public int hashCode() {
-        int result = getPublicationPlanId().hashCode();
+        int result = getPersonalPlanId().hashCode();
         result = 31 * result + getName().hashCode();
         return result;
     }
 
     @Override
     public String toString() {
-        return "PublicationPlan{" +
-                "publicationPlanId=" + publicationPlanId +
-                ", docStatus=" + docStatus +
+        return "PersonalPlan{" +
+                "docStatus=" + docStatus +
                 ", name='" + name + '\'' +
                 ", note='" + note + '\'' +
+                ", todo='" + todo + '\'' +
                 ", dateOfCreation=" + dateOfCreation +
                 '}';
     }

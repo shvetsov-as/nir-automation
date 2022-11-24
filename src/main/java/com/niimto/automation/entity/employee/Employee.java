@@ -9,11 +9,14 @@ import com.niimto.automation.entity.classifier.position.EmployeeRank;
 import com.niimto.automation.entity.user.User;
 import com.sun.istack.NotNull;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -95,7 +98,8 @@ public class Employee {
     @Column(name = "employee_stamp")
     private String stampNum;
 
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "users_user_id", referencedColumnName = "user_id")
     private User user;
 
     public Employee() {
