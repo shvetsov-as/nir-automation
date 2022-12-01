@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>Admin menu page</h3>
+<p>Form for creating a new user</p>
+form th:method="POST" th:action="@{/user}" th:object="${userDtoRequest}" th:object="${role}" th:object="${status}"
+th:object="${department}" th:object="${position}"
+<br>
+
+<form th:method="POST" th:action="@{/user}" th:object="${userDtoRequest}">
+    <table>
+        <tbody>
+        <!--  -->
+        <tr>
+            <td>Введите логин</td>
+            <td>
+                <input type="text" th:field="*{login}" required name="login" value="" placeholder="ПетровАС" title="Значение логина должно быть уникальным!"/>
+            </td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>Введите пароль</td>
+            <td>
+                <input type="password" th:field="*{password}" id="psw1" required name="psw1" value="" placeholder="aA345678"
+                       pattern="(?=.*\d)(?=.*[a-zа-я])(?=.*[A-ZА-Я]).{8,}"
+                       title="Должно содержать не менее одной цифры и одной прописной и строчной буквы, а также не менее 8 и более символов"/>
+                <button id="show">🌑</button>
+            </td>
+
+            <script>
+                let input = document.getElementById("psw1");
+                let button = document.getElementById("show");
+                button.onclick = show;
+
+                function show () {
+                    if(input.getAttribute('type') === 'password') {
+                        input.removeAttribute('type');
+                        input.setAttribute('type', 'text');
+                        button.innerHTML='🌑';
+                    } else {
+                        input.removeAttribute('type');
+                        input.setAttribute('type', 'password');
+                        button.innerHTML='🌕';
+                    }
+                }
+            </script>
+            <td>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Повторите пароль</td>
+            <td>
+                <input type="password" id="psw2" required name="psw2" value="" placeholder="aA345678"
+                       onfocusout="compare()" title="Пароли должны совпадать"/>
+                <script>
+                    function compare() {
+                        let password1 = document.getElementById('psw1');
+                        let password2 = document.getElementById('psw2');
+                        if (password1.value !== password2.value) {
+                            alert("Значения паролей не совпадают!");
+                        }
+                    }
+                </script>
+
+            </td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>Выберите роль пользователя th:field="*{role}"</td>
+            <td>
+                <select name="userRole" required>
+                    <option th:each="role : ${T(com.niimto.automation.entity.classifier.security.UserRole).values()}"
+                            th:value="${role}" th:text="${role.getRole()}"></option>
+                </select>
+            </td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>Статус записи th:field="*{status}" </td>
+            <td>
+                <select name="userStatus" required>
+                    <option th:each="status : ${T(com.niimto.automation.entity.classifier.security.UserStatus).values()}"
+                            th:value="${status}" th:text="${status.getStatus()}"></option>
+                </select>
+            </td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>Подразделение th:field="*{department}" </td>
+            <td>
+                <select name="department" required>
+                    <option th:each="department : ${T(com.niimto.automation.entity.classifier.position.EmployeeDepartment).values()}"
+                            th:value="${department}" th:text="${department.getShortName()}"></option>
+                </select>
+            </td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>Должность th:field="*{position}" </td>
+            <td>
+                <select name="position" required>
+                    <option th:each="position : ${T(com.niimto.automation.entity.classifier.position.EmployeePosition).values()}"
+                            th:value="${position}" th:text="${position.getPosition()}"></option>
+                </select>
+            </td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>Дата назначения</td>
+            <td>
+                <input type="date" th:field="*{appointmentDate}" name="appointmentDate" value=""
+                       max="2100-01-01" min="1970-01-01" required title="Дата назначения на текущую должность">
+            </td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>Введите фамилию</td>
+            <td>
+                <input type="text" th:field="*{surname}" required name="surname" value="" placeholder="Петров" title="Обязательно для заполнения"/>
+            </td>
+            <td></td>
+        </tr>
+
+
+        <tr>
+            <td>Введите имя</td>
+            <td>
+                <input type="text" th:field="*{name}" required name="name" value="" placeholder="Александр" title="Обязательно для заполнения"/>
+            </td>
+            <td></td>
+        </tr>
+
+
+        <tr>
+            <td>Введите отчество</td>
+            <td>
+                <input type="text" th:field="*{patronymic}" name="patronymic" value="" placeholder="Сергеевич" title="Заполняется при наличии"/>
+            </td>
+            <td></td>
+        </tr>
+
+        <tr>
+
+            <td>
+                <br>
+                <br>
+                <br>
+            </td>
+
+            <td>
+                <input type="submit" value="Создать" name="create"/>
+            </td>
+
+            <td>
+                <input type="reset" value="Очистить" name="reset"/>
+            </td>
+
+        </tr>
+
+
+        </tbody>
+    </table>
+</form>
+
+</body>
+</html>

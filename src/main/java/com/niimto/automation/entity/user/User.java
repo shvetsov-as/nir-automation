@@ -260,14 +260,34 @@ public class User {
 
         User user = (User) o;
 
-        if (!getUserId().equals(user.getUserId())) return false;
-        return getLogin().equals(user.getLogin());
+        if (!getLogin().equals(user.getLogin())) return false;
+        if (!getSurname().equals(user.getSurname())) return false;
+        return getName().equals(user.getName());
     }
 
     @Override
     public int hashCode() {
-        int result = getUserId().hashCode();
-        result = 31 * result + getLogin().hashCode();
+        int result = getLogin().hashCode();
+        result = 31 * result + getSurname().hashCode();
+        result = 31 * result + getName().hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", userRole=" + userRole +
+                ", userStatus=" + userStatus +
+                ", department=" + department +
+                ", position=" + position +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", appointmentDate=" + appointmentDate +
+                ", surname='" + surname + '\'' +
+                ", name='" + name + '\'' +
+                ", patronymic='" + patronymic + '\'' +
+                ", photoPath='" + photoPath + '\'' +
+                '}';
     }
 }

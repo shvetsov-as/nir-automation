@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <title>HTML 5 Boilerplate</title>
+</head>
+
+<body>
+
+<h1>Hello!</h1>
+
+<div th:each="person : ${people}">
+<!--/people/{id} (id=${person.getId()}) -->
+    <a th:href="@{people/new}" th:text="${person.getName()}">user</a>
+
+</div>
+
+</body>
+</html>
