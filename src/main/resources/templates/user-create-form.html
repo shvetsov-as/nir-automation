@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -11,6 +11,7 @@ form th:method="POST" th:action="@{/user}" th:object="${userDtoRequest}" th:obje
 th:object="${department}" th:object="${position}"
 <br>
 
+<!--/*@thymesVar id="userDtoRequest" type="com.niimto.automation.entity.user.dto.UserDtoRequest"*/-->
 <form th:method="POST" th:action="@{/user}" th:object="${userDtoRequest}">
     <table>
         <tbody>
@@ -95,7 +96,7 @@ th:object="${department}" th:object="${position}"
         </tr>
 
         <tr>
-            <td>Подразделение th:field="*{department}" </td>
+            <td>Управление th:field="*{department}" </td>
             <td>
                 <select name="department" required>
                     <option th:each="department : ${T(com.niimto.automation.entity.classifier.position.EmployeeDepartment).values()}"
@@ -104,6 +105,27 @@ th:object="${department}" th:object="${position}"
             </td>
             <td></td>
         </tr>
+<!--
+        <tr>
+            <td>Отдел th:field="*{branch}" </td>
+            <td>
+                <select name="branch" required>
+                    <option th:each="branch : ${T(com.niimto.automation.entity.classifier.position.EmployeeBranch).values()}"
+                            th:value="${branch}" th:text="${branch.getShortName()}"></option>
+                </select>
+            </td>
+            <td></td>
+        </tr>-->
+
+        <tr>
+            <td>Отдел th:field="*{branch}" </td>
+            <td>
+                <select name="branch" required>
+                    <option th:each="department : ${T(com.niimto.automation.entity.classifier.position.EmployeeDepartment).values()}"
+                            th:value="${department}" th:text="${department.getBranch()}"></option>
+                </select>
+            </td>
+            <td></td>
 
         <tr>
             <td>Должность th:field="*{position}" </td>
@@ -111,6 +133,17 @@ th:object="${department}" th:object="${position}"
                 <select name="position" required>
                     <option th:each="position : ${T(com.niimto.automation.entity.classifier.position.EmployeePosition).values()}"
                             th:value="${position}" th:text="${position.getPosition()}"></option>
+                </select>
+            </td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>Воинское звание th:field="*{rank}" </td>
+            <td>
+                <select name="rank" required>
+                    <option th:each="rank : ${T(com.niimto.automation.entity.classifier.position.EmployeeRank).values()}"
+                            th:value="${rank}" th:text="${rank.getRank()}"></option>
                 </select>
             </td>
             <td></td>

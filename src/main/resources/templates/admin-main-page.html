@@ -9,7 +9,6 @@
 <form th:method="GET" th:action="@{/user}">
 
     <div th:each="user : ${users}">
-        <!--/people/{id} (id=${person.getId()}) th:href="@{people/new}" //-->
         <a  th:text="${user.toString()}">user</a>
     </div>
 

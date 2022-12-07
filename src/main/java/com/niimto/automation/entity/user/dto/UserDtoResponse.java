@@ -11,8 +11,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 import java.util.UUID;
 
-public class UserDtoRequest {
 
+public class UserDtoResponse {
     private UUID userId;
     private UserRole userRole;
     private UserStatus userStatus;
@@ -29,7 +29,7 @@ public class UserDtoRequest {
     private String patronymic;
     private String photoPath;
 
-    public UserDtoRequest() {
+    public UserDtoResponse() {
     }
 
     public UUID getUserId() {
@@ -146,7 +146,7 @@ public class UserDtoRequest {
 
     @Override
     public String toString() {
-        return "UserDtoRequest{" +
+        return "UserDtoResponse{" +
                 "userRole=" + userRole +
                 ", userStatus=" + userStatus +
                 ", department=" + department +

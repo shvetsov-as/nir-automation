@@ -1,7 +1,9 @@
 package com.niimto.automation.entity.user;
 
+import com.niimto.automation.entity.classifier.position.EmployeeBranch;
 import com.niimto.automation.entity.classifier.position.EmployeeDepartment;
 import com.niimto.automation.entity.classifier.position.EmployeePosition;
+import com.niimto.automation.entity.classifier.position.EmployeeRank;
 import com.niimto.automation.entity.classifier.security.UserRole;
 import com.niimto.automation.entity.classifier.security.UserStatus;
 import com.niimto.automation.entity.document.Document;
@@ -12,25 +14,8 @@ import com.niimto.automation.entity.researchactivity.group.Group;
 import com.niimto.automation.entity.tasktodo.Task;
 import com.sun.istack.NotNull;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import javax.persistence.*;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -55,6 +40,15 @@ public class User {
     @NotNull
     @Enumerated(EnumType.STRING)
     private EmployeeDepartment department;
+
+    @Column(name = "user_branch")
+    @Enumerated(EnumType.STRING)
+    private EmployeeBranch branch;
+
+    @Column(name = "user_rank", nullable = false)
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private EmployeeRank rank;
 
     @Column(name = "user_position", nullable = false)
     @NotNull
@@ -139,6 +133,22 @@ public class User {
 
     public void setDepartment(EmployeeDepartment department) {
         this.department = department;
+    }
+
+    public EmployeeBranch getBranch() {
+        return branch;
+    }
+
+    public void setBranch(EmployeeBranch branch) {
+        this.branch = branch;
+    }
+
+    public EmployeeRank getRank() {
+        return rank;
+    }
+
+    public void setRank(EmployeeRank rank) {
+        this.rank = rank;
     }
 
     public EmployeePosition getPosition() {
