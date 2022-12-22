@@ -1,8 +1,7 @@
 package com.niimto.automation.model.controller;
 
 import com.niimto.automation.entity.user.dto.UserDtoRequest;
-import com.niimto.automation.model.service.UserService;
-import com.niimto.automation.model.service.impl.UserServiceImpl;
+import com.niimto.automation.model.facade.userfacade.UserFacade;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,13 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user")
 public class UserController {
 
-    private final UserService userService;
+    private final UserFacade userFacade;
 
-    private final PersonDAO personDAO;
-
-    public UserController(UserServiceImpl userService, PersonDAO personDAO) {
-        this.userService = userService;
-        this.personDAO = personDAO;
+    public UserController(UserFacade userFacade) {
+        this.userFacade = userFacade;
     }
 
     @GetMapping()
@@ -31,10 +27,7 @@ public class UserController {
 
     @PostMapping()
     public String createUser(@ModelAttribute("userDtoRequest") UserDtoRequest request) {
-        personDAO.save(request);
-        System.out.println("**************" + request);
-        userService.createUser(request);
-
+        userFacade.createUser(request);
         return "redirect:admin";
     }
 

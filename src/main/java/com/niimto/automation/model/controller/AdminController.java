@@ -1,5 +1,6 @@
 package com.niimto.automation.model.controller;
 
+import com.niimto.automation.model.facade.userfacade.UserFacade;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,15 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 public class AdminController {
 
-    private final PersonDAO personDAO;
+    private final UserFacade userFacade;
 
-    public AdminController(PersonDAO personDAO) {
-        this.personDAO = personDAO;
+    public AdminController(UserFacade userFacade) {
+        this.userFacade = userFacade;
     }
-
     @GetMapping()
-        public String index(Model model) {
-            model.addAttribute("users", personDAO.getUserDtoRequestList());
-            return "admin-main-page";
-        }
+    public String index(Model model) {
+        model.addAttribute("userDtoResponseList", userFacade.findAll());
+        return "admin-main";
+    }
 }

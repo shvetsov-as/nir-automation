@@ -1,25 +1,39 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href="/static/view/core/bootstrap/css/bootstrap.css"
+          th:href="@{/view/core/bootstrap/css/bootstrap.css}">
+    <!--===============================================================================================-->
+    <script src="../static/view/core/jquery/jquery.min.js" th:src="@{/view/core/jquery/jquery.min.js}"></script>
+    <!--===============================================================================================-->
+    <script src="../static/view/core/bootstrap/js/bootstrap.bundle.js"
+            th:src="@{/view/core/bootstrap/js/bootstrap.bundle.js}"></script>
+    <!--========================================custom js=======================================================-->
+
+    <script src="../static/view/js/user-create-form-page/request-branch_option.js"
+            th:src="@{/view/js/user-create-form-page/request-branch_option.js}"></script>
+
 </head>
 <body>
 <h3>Admin menu page</h3>
 <p>Form for creating a new user</p>
-form th:method="POST" th:action="@{/user}" th:object="${userDtoRequest}" th:object="${role}" th:object="${status}"
-th:object="${department}" th:object="${position}"
-<br>
 
+<br>
 <!--/*@thymesVar id="userDtoRequest" type="com.niimto.automation.entity.user.dto.UserDtoRequest"*/-->
-<form th:method="POST" th:action="@{/user}" th:object="${userDtoRequest}">
+
+<form id="createUserForm" th:method="POST" th:action="@{/user}" th:object="${userDtoRequest}">
     <table>
         <tbody>
-        <!--  -->
+
         <tr>
             <td>Введите логин</td>
             <td>
-                <input type="text" th:field="*{login}" required name="login" value="" placeholder="ПетровАС" title="Значение логина должно быть уникальным!"/>
+                <input type="text" th:field="*{login}" required name="login" value="" placeholder="ПетровАС"
+                       title="Значение логина должно быть уникальным!"/>
             </td>
             <td></td>
         </tr>
@@ -27,31 +41,13 @@ th:object="${department}" th:object="${position}"
         <tr>
             <td>Введите пароль</td>
             <td>
-                <input type="password" th:field="*{password}" id="psw1" required name="psw1" value="" placeholder="aA345678"
+                <input type="password" th:field="*{password}" id="psw1" required name="psw1" value=""
+                       placeholder="aA345678"
                        pattern="(?=.*\d)(?=.*[a-zа-я])(?=.*[A-ZА-Я]).{8,}"
                        title="Должно содержать не менее одной цифры и одной прописной и строчной буквы, а также не менее 8 и более символов"/>
-                <button id="show">🌑</button>
-            </td>
 
-            <script>
-                let input = document.getElementById("psw1");
-                let button = document.getElementById("show");
-                button.onclick = show;
-
-                function show () {
-                    if(input.getAttribute('type') === 'password') {
-                        input.removeAttribute('type');
-                        input.setAttribute('type', 'text');
-                        button.innerHTML='🌑';
-                    } else {
-                        input.removeAttribute('type');
-                        input.setAttribute('type', 'password');
-                        button.innerHTML='🌕';
-                    }
-                }
-            </script>
-            <td>
             </td>
+            <td></td>
         </tr>
 
         <tr>
@@ -59,11 +55,37 @@ th:object="${department}" th:object="${position}"
             <td>
                 <input type="password" id="psw2" required name="psw2" value="" placeholder="aA345678"
                        onfocusout="compare()" title="Пароли должны совпадать"/>
+                <button id="show">🌑</button>
+                <script>
+                    let psw1 = document.getElementById("psw1");
+                    let psw2 = document.getElementById("psw2");
+                    let button = document.getElementById("show");
+                    button.onclick = show;
+
+                    function show() {
+                        if (psw1.getAttribute('type') === 'password') {
+                            psw1.removeAttribute('type');
+                            psw1.setAttribute('type', 'text');
+                            psw2.removeAttribute('type');
+                            psw2.setAttribute('type', 'text');
+                            button.innerHTML = '🌑';
+                        } else {
+                            psw1.removeAttribute('type');
+                            psw1.setAttribute('type', 'password');
+                            psw2.removeAttribute('type');
+                            psw2.setAttribute('type', 'password');
+                            button.innerHTML = '🌕';
+                        }
+                    }
+                </script>
+
+
                 <script>
                     function compare() {
-                        let password1 = document.getElementById('psw1');
-                        let password2 = document.getElementById('psw2');
-                        if (password1.value !== password2.value) {
+                        let psw1 = document.getElementById('psw1');
+                        let psw2 = document.getElementById('psw2');
+                        if (psw1.value !== psw2.value) {
+                            psw2.value = "";
                             alert("Значения паролей не совпадают!");
                         }
                     }
@@ -74,7 +96,7 @@ th:object="${department}" th:object="${position}"
         </tr>
 
         <tr>
-            <td>Выберите роль пользователя th:field="*{role}"</td>
+            <td>Выберите роль пользователя</td>
             <td>
                 <select name="userRole" required>
                     <option th:each="role : ${T(com.niimto.automation.entity.classifier.security.UserRole).values()}"
@@ -85,7 +107,7 @@ th:object="${department}" th:object="${position}"
         </tr>
 
         <tr>
-            <td>Статус записи th:field="*{status}" </td>
+            <td>Статус записи</td>
             <td>
                 <select name="userStatus" required>
                     <option th:each="status : ${T(com.niimto.automation.entity.classifier.security.UserStatus).values()}"
@@ -96,39 +118,37 @@ th:object="${department}" th:object="${position}"
         </tr>
 
         <tr>
-            <td>Управление th:field="*{department}" </td>
+            <td>Управление</td>
             <td>
-                <select name="department" required>
+
+                <select name="department" type="text" id="inputDepartmentSelector" required>
+                    <option selected disabled value="">Выберите подразделение / управление</option>
                     <option th:each="department : ${T(com.niimto.automation.entity.classifier.position.EmployeeDepartment).values()}"
-                            th:value="${department}" th:text="${department.getShortName()}"></option>
+                            th:id="${department.getDepartment()}" th:value="${department}"
+                            th:text="${department.getShortName()}"
+                            th:classid="${department}"></option>
                 </select>
             </td>
             <td></td>
         </tr>
-<!--
-        <tr>
-            <td>Отдел th:field="*{branch}" </td>
-            <td>
-                <select name="branch" required>
-                    <option th:each="branch : ${T(com.niimto.automation.entity.classifier.position.EmployeeBranch).values()}"
-                            th:value="${branch}" th:text="${branch.getShortName()}"></option>
-                </select>
-            </td>
-            <td></td>
-        </tr>-->
+
 
         <tr>
-            <td>Отдел th:field="*{branch}" </td>
+            <td>Отдел</td>
             <td>
-                <select name="branch" required>
-                    <option th:each="department : ${T(com.niimto.automation.entity.classifier.position.EmployeeDepartment).values()}"
-                            th:value="${department}" th:text="${department.getBranch()}"></option>
-                </select>
-            </td>
-            <td></td>
 
+                <div id="optionResultDept" class="form-group">
+                    <select name="branch" type="text" id="inputBranchSelector" class="inputBranch">
+                        <option selected disabled value="">Выберите структурное подразделение</option>
+                    </select>
+                </div>
+
+            </td>
+            <td>
+            </td>
+        </tr>
         <tr>
-            <td>Должность th:field="*{position}" </td>
+            <td>Должность</td>
             <td>
                 <select name="position" required>
                     <option th:each="position : ${T(com.niimto.automation.entity.classifier.position.EmployeePosition).values()}"
@@ -139,7 +159,7 @@ th:object="${department}" th:object="${position}"
         </tr>
 
         <tr>
-            <td>Воинское звание th:field="*{rank}" </td>
+            <td>Воинское звание</td>
             <td>
                 <select name="rank" required>
                     <option th:each="rank : ${T(com.niimto.automation.entity.classifier.position.EmployeeRank).values()}"
@@ -161,7 +181,8 @@ th:object="${department}" th:object="${position}"
         <tr>
             <td>Введите фамилию</td>
             <td>
-                <input type="text" th:field="*{surname}" required name="surname" value="" placeholder="Петров" title="Обязательно для заполнения"/>
+                <input type="text" th:field="*{surname}" required name="surname" value="" placeholder="Петров"
+                       title="Обязательно для заполнения"/>
             </td>
             <td></td>
         </tr>
@@ -170,7 +191,8 @@ th:object="${department}" th:object="${position}"
         <tr>
             <td>Введите имя</td>
             <td>
-                <input type="text" th:field="*{name}" required name="name" value="" placeholder="Александр" title="Обязательно для заполнения"/>
+                <input type="text" th:field="*{name}" required name="name" value="" placeholder="Александр"
+                       title="Обязательно для заполнения"/>
             </td>
             <td></td>
         </tr>
@@ -179,7 +201,8 @@ th:object="${department}" th:object="${position}"
         <tr>
             <td>Введите отчество</td>
             <td>
-                <input type="text" th:field="*{patronymic}" name="patronymic" value="" placeholder="Сергеевич" title="Заполняется при наличии"/>
+                <input type="text" th:field="*{patronymic}" name="patronymic" value="" placeholder="Сергеевич"
+                       title="Заполняется при наличии"/>
             </td>
             <td></td>
         </tr>
@@ -187,7 +210,6 @@ th:object="${department}" th:object="${position}"
         <tr>
 
             <td>
-                <br>
                 <br>
                 <br>
             </td>
@@ -202,10 +224,10 @@ th:object="${department}" th:object="${position}"
 
         </tr>
 
-
         </tbody>
     </table>
 </form>
+
 
 </body>
 </html>

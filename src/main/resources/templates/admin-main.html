@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href="/static/view/core/bootstrap/css/bootstrap.css"
+          th:href="@{/view/core/bootstrap/css/bootstrap.css}">
+    <!--===============================================================================================-->
+    <script src="../static/view/core/jquery/jquery.min.js" th:src="@{/view/core/jquery/jquery.min.js}"></script>
+    <!--===============================================================================================-->
+    <script src="../static/view/core/bootstrap/js/bootstrap.bundle.js"
+            th:src="@{/view/core/bootstrap/js/bootstrap.bundle.js}"></script>
+    <!--========================================custom js=======================================================-->
+</head>
+<body>
+
+
+<form th:method="GET" th:action="@{/user}">
+
+    <!--/*@thymesVar id="userDtoResponseList" type="com.niimto.automation.entity.user.dto.UserDtoResponse"*/-->
+    <table>
+        <tbody>
+        <tr th:each="user : ${userDtoResponseList}">
+            <td th:text="${user.getLogin()}"></td>
+            <td th:text="${user.getSurname()}"></td>
+            <td th:text="${user.getName()}"></td>
+            <td th:text="${user.getPatronymic()}"></td>
+            <td><a th:href="@{/user/{id}(id=${user.getUserId()})}">update</a></td>
+            <!--  th:text="${person.getName()}" -->
+            <td><a th:href="@{/user/{id}(id=${user.getUserId()})}">delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <input type="submit" value="Add new user"/>
+    </div>
+</form>
+</body>
+</html>

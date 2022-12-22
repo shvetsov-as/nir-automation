@@ -19,7 +19,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public String index() {
-        return "admin-main-page";
+        return "admin-main";
     }
 
 }
